@@ -21,7 +21,12 @@ export default async function Home() {
           </div>
         </CardHeader>
         <CardContent className="space-y-6">
-          <TaskForm onSubmit={createTask} />
+          <TaskForm onSubmit={async (formData) => { 
+            const result = await createTask(formData);
+            if (result.error) {
+              console.error(result.error);
+            }
+          }} />
           
           <Suspense fallback={<div>Loading tasks...</div>}>
             <TaskList
